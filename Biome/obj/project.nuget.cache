@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "mhkaxypmtnc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\wata\\RiderProjects\\Biome\\Biome\\Biome.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wata\\.nuget\\packages\\microsoft.win32.systemevents\\11.0.0-preview.2.26159.112\\microsoft.win32.systemevents.11.0.0-preview.2.26159.112.nupkg.sha512",
+    "C:\\Users\\wata\\.nuget\\packages\\system.drawing.common\\11.0.0-preview.2.26159.112\\system.drawing.common.11.0.0-preview.2.26159.112.nupkg.sha512"
+  ],
+  "logs": []
+}
