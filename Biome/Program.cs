@@ -4,15 +4,23 @@ using Biome;
 public class Program {
     public static void Main(string[] args) {
         var randomLayer = new RandomLayer<TileType>([
-            new(TileType.Field, 1),
+            new(TileType.Hill, 1),
             new(TileType.Water, 10)
         ]);
-        var generate = new AddIslandLayer<TileType>(TileType.Field, TileType.Water, new float[,] {
-            { 0.12f, 0.25f, 0.12f },
-            { 0.25f, 0, 0.25f },
-            { 0.12f, 0.25f, 0.12f }
-        });
-        var zoom = new ZoomLayer<TileType>(2, 2, true);
+        var generateFilter = new int[,] {
+            {1, 2, 1},
+            {2, 0 ,2},
+            {1, 2, 1},
+        };
+        var generate = new AddIslandLayer<TileType>(generateFilter);
+        var zoom = new ZoomLayer<TileType>(1, 2, true);
+        var fillSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.Hill, 0.5f);
+        var fillDeepSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.DeepSea, 0.5f);
+        var addTemperatures = new ReplaceLayer<TileType>(TileType.Hill, [
+            new(TileType.Desert, 4),
+            new(TileType.Tundra, 1),
+            new(TileType.Freezing, 1),
+        ]);
         
         var zoomAndGenerate = new LayerComposite<TileType>([zoom, generate]);
         var graph = new LayerComposite<TileType>([
@@ -20,11 +28,14 @@ public class Program {
             zoomAndGenerate,
             generate, 
             generate,
-            zoom,
+            fillSea,
+            fillDeepSea,
+            addTemperatures,
+            generate,
             zoom,
             zoom,
             zoom,
         ], true, TileManager.ToColor);
-        graph.Get(randomLayer, new(256, 256), null).ToImage("Test.png", TileManager.ToColor);
+        graph.Get(randomLayer, new(8, 8), null).ToImage("Test.png", TileManager.ToColor);
     }
 }

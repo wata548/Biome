@@ -2,7 +2,7 @@
 
 namespace Biome;
 
-public class RandomLayer<T>: InputLayer<T> {
+public class RandomLayer<T>: InputLayer<T> where T : notnull {
     
    //==================================================||Fields 
     private List<RatioValue<T>> _fixedTileRatio;
@@ -21,10 +21,9 @@ public class RandomLayer<T>: InputLayer<T> {
         var datas = new T[length];
         var random = new Random();
         for (var i = 0; i < length; i++) {
-            var value = random.Next() % _fixedTileRatio[^1].Amount + 1;
+            var value = random.Next(_fixedTileRatio[^1].Amount) + 1;
             datas[i] = _fixedTileRatio.UpperBound(value, row => row.Amount).Data;
         }
-
         return new(pSize, datas);
     }
 }

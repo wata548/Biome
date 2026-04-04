@@ -2,97 +2,60 @@
   "version": 4,
   "targets": {
     "net11.0-windows": {
-      "Microsoft.Win32.SystemEvents/11.0.0-preview.2.26159.112": {
+      "Microsoft.Win32.SystemEvents/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net11.0/Microsoft.Win32.SystemEvents.dll": {
+          "lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net11.0/Microsoft.Win32.SystemEvents.dll": {
+          "lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/net10.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net11.0/Microsoft.Win32.SystemEvents.dll": {
+          "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
         }
       },
-      "System.Drawing.Common/11.0.0-preview.2.26159.112": {
+      "System.Drawing.Common/9.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Win32.SystemEvents": "11.0.0-preview.2.26159.112"
+          "Microsoft.Win32.SystemEvents": "9.0.0"
         },
         "compile": {
-          "lib/net11.0/System.Drawing.Common.dll": {
+          "lib/net9.0/System.Drawing.Common.dll": {
             "related": ".pdb;.xml"
           },
-          "lib/net11.0/System.Private.Windows.Core.dll": {
-            "related": ".xml"
-          },
-          "lib/net11.0/System.Private.Windows.GdiPlus.dll": {
+          "lib/net9.0/System.Private.Windows.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net11.0/System.Drawing.Common.dll": {
+          "lib/net9.0/System.Drawing.Common.dll": {
             "related": ".pdb;.xml"
           },
-          "lib/net11.0/System.Private.Windows.Core.dll": {
-            "related": ".xml"
-          },
-          "lib/net11.0/System.Private.Windows.GdiPlus.dll": {
+          "lib/net9.0/System.Private.Windows.Core.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/net10.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       }
     }
   },
   "libraries": {
-    "Microsoft.Win32.SystemEvents/11.0.0-preview.2.26159.112": {
-      "sha512": "AW1z3ULhOZ1bB6JQx/I4181pFrxiCVJH8pGradKyxmVHpZVo+DXEXRtCdHjmuPTJJQd7inAEIGKOZ0eQhLiiag==",
+    "Microsoft.Win32.SystemEvents/9.0.0": {
+      "sha512": "z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw==",
       "type": "package",
-      "path": "microsoft.win32.systemevents/11.0.0-preview.2.26159.112",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net10.0/_._",
-        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
-        "lib/net10.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net10.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net11.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net11.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net462/Microsoft.Win32.SystemEvents.dll",
-        "lib/net462/Microsoft.Win32.SystemEvents.xml",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
-        "microsoft.win32.systemevents.11.0.0-preview.2.26159.112.nupkg.sha512",
-        "microsoft.win32.systemevents.nuspec",
-        "runtimes/win/lib/net10.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net10.0/Microsoft.Win32.SystemEvents.xml",
-        "runtimes/win/lib/net11.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net11.0/Microsoft.Win32.SystemEvents.xml",
-        "useSharedDesignerContext.txt"
-      ]
-    },
-    "System.Drawing.Common/11.0.0-preview.2.26159.112": {
-      "sha512": "d5xZm73NpqOVfm4F0fHK0NSmn0tFanQ5VQjjGYDOqjD5p97xgx4XpKDp5ydiqe4U/P7CouxoePpcvt3q8xq2tA==",
-      "type": "package",
-      "path": "system.drawing.common/11.0.0-preview.2.26159.112",
+      "path": "microsoft.win32.systemevents/9.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -100,29 +63,57 @@
         "LICENSE.TXT",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net10.0/_._",
+        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
+        "lib/net462/Microsoft.Win32.SystemEvents.dll",
+        "lib/net462/Microsoft.Win32.SystemEvents.xml",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
+        "microsoft.win32.systemevents.9.0.0.nupkg.sha512",
+        "microsoft.win32.systemevents.nuspec",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Drawing.Common/9.0.0": {
+      "sha512": "uoozjI3+dlgKh2onFJcz8aNLh6TRCPlLSh8Dbuljc8CdvqXrxHOVysJlrHvlsOCqceqGBR1wrMPxlnzzhynktw==",
+      "type": "package",
+      "path": "system.drawing.common/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Drawing.Common.targets",
         "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
-        "lib/net10.0/System.Drawing.Common.dll",
-        "lib/net10.0/System.Drawing.Common.pdb",
-        "lib/net10.0/System.Drawing.Common.xml",
-        "lib/net10.0/System.Private.Windows.Core.dll",
-        "lib/net10.0/System.Private.Windows.Core.xml",
-        "lib/net10.0/System.Private.Windows.GdiPlus.dll",
-        "lib/net10.0/System.Private.Windows.GdiPlus.xml",
-        "lib/net11.0/System.Drawing.Common.dll",
-        "lib/net11.0/System.Drawing.Common.pdb",
-        "lib/net11.0/System.Drawing.Common.xml",
-        "lib/net11.0/System.Private.Windows.Core.dll",
-        "lib/net11.0/System.Private.Windows.Core.xml",
-        "lib/net11.0/System.Private.Windows.GdiPlus.dll",
-        "lib/net11.0/System.Private.Windows.GdiPlus.xml",
         "lib/net462/System.Drawing.Common.dll",
         "lib/net462/System.Drawing.Common.pdb",
         "lib/net462/System.Drawing.Common.xml",
+        "lib/net8.0/System.Drawing.Common.dll",
+        "lib/net8.0/System.Drawing.Common.pdb",
+        "lib/net8.0/System.Drawing.Common.xml",
+        "lib/net8.0/System.Private.Windows.Core.dll",
+        "lib/net8.0/System.Private.Windows.Core.xml",
+        "lib/net9.0/System.Drawing.Common.dll",
+        "lib/net9.0/System.Drawing.Common.pdb",
+        "lib/net9.0/System.Drawing.Common.xml",
+        "lib/net9.0/System.Private.Windows.Core.dll",
+        "lib/net9.0/System.Private.Windows.Core.xml",
         "lib/netstandard2.0/System.Drawing.Common.dll",
         "lib/netstandard2.0/System.Drawing.Common.pdb",
         "lib/netstandard2.0/System.Drawing.Common.xml",
@@ -130,7 +121,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.drawing.common.11.0.0-preview.2.26159.112.nupkg.sha512",
+        "system.drawing.common.9.0.0.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -138,27 +129,27 @@
   },
   "projectFileDependencyGroups": {
     "net11.0-windows": [
-      "System.Drawing.Common >= 11.0.0-preview.2.26159.112"
+      "System.Drawing.Common >= 9.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\wata\\.nuget\\packages\\": {},
+    "C:\\Users\\watas\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wata\\RiderProjects\\Biome\\Biome\\Biome.csproj",
+      "projectUniqueName": "C:\\Users\\watas\\RiderProjects\\Biome\\Biome\\Biome.csproj",
       "projectName": "Biome",
-      "projectPath": "C:\\Users\\wata\\RiderProjects\\Biome\\Biome\\Biome.csproj",
-      "packagesPath": "C:\\Users\\wata\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wata\\RiderProjects\\Biome\\Biome\\obj\\",
+      "projectPath": "C:\\Users\\watas\\RiderProjects\\Biome\\Biome\\Biome.csproj",
+      "packagesPath": "C:\\Users\\watas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\watas\\RiderProjects\\Biome\\Biome\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\wata\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\watas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -195,7 +186,7 @@
         "dependencies": {
           "System.Drawing.Common": {
             "target": "Package",
-            "version": "[11.0.0-preview.2.26159.112, )"
+            "version": "[9.0.0, )"
           }
         },
         "imports": [
@@ -214,7 +205,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\wata\\.dotnet\\sdk\\11.0.100-preview.2.26159.112/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Users\\watas\\.dotnet\\sdk\\11.0.100-preview.2.26159.112/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
