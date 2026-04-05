@@ -18,7 +18,7 @@ public class Program {
         var fillSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.Forest, 0.5f);
         var fillDeepSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.DeepSea, 0.5f);
         var addTemperatures = new ReplaceLayer<TileType>(TileType.Forest, [
-            new(TileType.Desert, 4),
+            new(TileType.Desert, 2),
             new(TileType.Taiga, 1),
             new(TileType.Freezing, 1),
         ]);
@@ -65,10 +65,19 @@ public class Program {
             separateWarm,
             separateForest,
             separateCold,
-            realZoom,
-            realZoom,
+            zoom,
+            zoom,
+            zoom,
             realZoom,
         ], true, TileManager.ToColor);
-        graph.Get(randomLayer, new(4 , 4), null).ToImage("Test.png", TileManager.ToColor);
+        var result = graph.Get(randomLayer, new(4 , 4), null);
+        var colorMap = new PerlinTest(12314, 10).Get(result.Output, result.Size, null);
+        colorMap.ToImage("DeepthMap.png", hsb => {
+            var rgb = hsb.ToRgb();
+            int r = (int)rgb.R;
+            int g = (int)rgb.G;
+            int b = (int)rgb.B;
+            return Color.FromArgb(r, g, b);
+        });
     }
 }
