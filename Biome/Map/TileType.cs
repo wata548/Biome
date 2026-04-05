@@ -6,10 +6,15 @@ public enum TileType {
     Error,
     Water,
     DeepSea,
-    Hill,
+    Savanna,
+    Plain,
+    Forest,
     Desert,
     Freezing,
-    Tundra
+    Taiga,
+    Mountain,
+    Swamp,
+    DarkForest
 }
 
 public static class TileManager {
@@ -18,9 +23,14 @@ public static class TileManager {
             TileType.Error => Color.Magenta,
             TileType.Water => Color.MidnightBlue,
             TileType.DeepSea => Color.Black,
-            TileType.Hill => Color.YellowGreen,
+            TileType.Forest => Color.Green,
             TileType.Desert => Color.DarkOrange,
+            TileType.Savanna => Color.DarkKhaki,
+            TileType.Plain => Color.YellowGreen,
             TileType.Freezing => Color.White,
-            TileType.Tundra => Color.DarkGreen
+            TileType.Taiga => Color.DarkGreen,
+            TileType.Mountain => Color.DarkGray,
+            TileType.DarkForest => Color.DarkSlateGray,
+            TileType.Swamp => Color.Aquamarine
         };
 }
