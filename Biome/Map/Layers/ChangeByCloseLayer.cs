@@ -7,25 +7,27 @@ public class ChangeByCloseLayer<T>(T pBefore, T pAfter, T[] pTarget): MiddleLaye
     private T _after = pAfter;
     private ImmutableSortedSet<T> _target = pTarget.ToImmutableSortedSet();
     
-    public override LayerOutput<T> Get(T[] pInput, Coord pSize, Coord pPos) {
-        for (int x = 0; x < pSize.X; x++) {
-            for (int y = 0; y < pSize.Y; y++) {
-                if(!pInput[x + y * pSize.X].Equals(_before))
+    public override LayerOutput<T> Get(LayerOutput<T> pArgs, Coord pPos, int pSeed) {
+        var size = pArgs.Size;
+        var input = pArgs.Output;
+        for (int x = 0; x < size.X; x++) {
+            for (int y = 0; y < size.Y; y++) {
+                if(!input[x + y * size.X].Equals(_before))
                     continue;
                 
                 foreach (var dir in Coord.Directions) {
                     var cx = x + dir.X;
                     var cy = y + dir.Y;
-                    if (cx < 0 || cx >= pSize.X || cy < 0 || cy >= pSize.Y) 
+                    if (cx < 0 || cx >= size.X || cy < 0 || cy >= size.Y) 
                         continue;
-                    if (_target.Contains(pInput[cx + cy * pSize.X])) {
-                        pInput[x + y * pSize.X] = _after;
+                    if (_target.Contains(input[cx + cy * size.X])) {
+                        input[x + y * size.X] = _after;
                         break;
                     }
                 }
             }   
         }
 
-        return new(pSize, pInput);
+        return pArgs with{Depth = pArgs.Depth + 1};
     }
 }

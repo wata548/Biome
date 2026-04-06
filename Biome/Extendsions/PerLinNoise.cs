@@ -50,9 +50,9 @@ public class PerLinNoise
         float leftDown = RandomDotProduction2D(grid.X, grid.Y + 1, pPoint);
         float rightDown = RandomDotProduction2D(grid.X + 1, grid.Y + 1, pPoint);
 
-        float   lerpX1      = Lerp(interval.Item1, leftUp,      rightUp);
-        float   lerpX2      = Lerp(interval.Item1, leftDown,    rightDown);
-        float   result      = Lerp(interval.Item2, lerpX1,      lerpX2);
+        float lerpX1 = Lerp(interval.Item1, leftUp, rightUp);
+        float lerpX2 = Lerp(interval.Item1, leftDown, rightDown);
+        float result = Lerp(interval.Item2, lerpX1, lerpX2);
 
         return result;
 

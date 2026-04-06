@@ -4,10 +4,10 @@ namespace Biome;
 
 public class RandomLayer<T>: InputLayer<T> where T : notnull {
     
-   //==================================================||Fields 
+    //==================================================||Fields 
     private List<RatioValue<T>> _fixedTileRatio;
     
-   //==================================================||Constructors 
+    //==================================================||Constructors 
     public RandomLayer(List<RatioValue<T>> pTileRatio) {
         var value = 0;
         _fixedTileRatio = pTileRatio
@@ -15,15 +15,34 @@ public class RandomLayer<T>: InputLayer<T> where T : notnull {
             .ToList();
     }
     
-   //==================================================||Methods 
-    public override LayerOutput<T> Get(T[] pInput, Coord pSize, Coord pPos) {
-        var length = pSize.X * pSize.Y;
+    //==================================================||Methods 
+    public override LayerOutput<T> Get(LayerOutput<T> pArgs, Coord pPos, int pSeed) {
+        var size = pArgs.Size;
+        var length = size.X * size.Y;
         var datas = new T[length];
-        var random = new Random();
-        for (var i = 0; i < length; i++) {
-            var value = random.Next(_fixedTileRatio[^1].Amount) + 1;
-            datas[i] = _fixedTileRatio.UpperBound(value, row => row.Amount).Data;
+
+        var seed = pSeed + pArgs.Depth;
+        for (var x = 0; x < size.X; x++) {
+            for (int y = 0; y < size.Y; y++) {
+                var value = Random(
+                    seed,
+                    pArgs.StartPos.X + x * pArgs.PixelPerSize.X,
+                    pArgs.StartPos.Y + y * pArgs.PixelPerSize.Y,
+                    _fixedTileRatio[^1].Amount
+                ) + 1;
+                datas[x + y * size.X] = _fixedTileRatio.UpperBound(value, row => row.Amount).Data;
+            }
         }
-        return new(pSize, datas);
+
+        return pArgs with { Output = datas, Depth = pArgs.Depth };
+    }
+    int Random(int pSeed, int pX, int pY, int pMaxValue) {
+        var v = pSeed;
+        v ^= pX * 0x4CE2A0C3;
+        v ^= pY * 0x1A57AA2C;
+        v ^= v >> 8;
+        v *= 0x2C52ACC7;
+        v %= pMaxValue;
+        return v > 0 ? v : -v;
     }
 }

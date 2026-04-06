@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using Biome;
 
 public class Program {
@@ -13,8 +14,7 @@ public class Program {
             {1, 2, 1},
         };
         var generate = new AddIslandLayer<TileType>(generateFilter);
-        var zoom = new ZoomLayer<TileType>(1, 2, true);
-        var realZoom = new ZoomLayer<TileType>(2, 2, true);
+        var zoom = new ZoomLayer<TileType>(true);
         var fillSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.Forest, 0.5f);
         var fillDeepSea = new StochasticFillLayer<TileType>(TileType.Water, TileType.DeepSea, 0.5f);
         var addTemperatures = new ReplaceLayer<TileType>(TileType.Forest, [
@@ -68,10 +68,20 @@ public class Program {
             zoom,
             zoom,
             zoom,
-            realZoom,
         ], true, TileManager.ToColor);
-        var result = graph.Get(randomLayer, new(4 , 4), null);
-        var colorMap = new PerlinTest(12314, 10).Get(result.Output, result.Size, null);
+
+        var pixelPerSize = Coord.One * 2048;
+        var size = Coord.One * 16;
+        
+        var input = new LayerOutput<TileType>(Coord.Zero, pixelPerSize, size, null);
+        var startPos = pixelPerSize * size;
+        startPos.X = (new Random()).Next(startPos.X);
+        startPos.Y = (new Random()).Next(startPos.Y);
+
+        var seed = 77;
+        var inputLayerResult = randomLayer.Get(input, startPos, seed);
+        var result = graph.Get(inputLayerResult, startPos, seed);
+        var colorMap = new PerlinTest(10).Get(result, startPos, 12354);
         colorMap.ToImage("DeepthMap.png", hsb => {
             var rgb = hsb.ToRgb();
             int r = (int)rgb.R;
@@ -79,5 +89,6 @@ public class Program {
             int b = (int)rgb.B;
             return Color.FromArgb(r, g, b);
         });
+        Console.WriteLine(result.PixelPerSize);
     }
 }

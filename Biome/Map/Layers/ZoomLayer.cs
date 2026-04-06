@@ -1,45 +1,51 @@
-﻿using System.Diagnostics;
-using System.Net.Http.Headers;
+﻿namespace Biome;
 
-namespace Biome;
-
-public class ZoomLayer<T>(int pSize, int pScale, bool pSpread = false): MiddleLayer<T> where T : notnull {
-    private int _partDenominator = pSize;
-    private int _scale = pScale;
+public class ZoomLayer<T>(bool pSpread = false): MiddleLayer<T> where T : notnull {
     private bool _spread = pSpread;
-    private Random _random = new(); 
     
-    public override LayerOutput<T> Get(T[] pInput, Coord pSize, Coord pPos) {
-        var size = pSize / _partDenominator;
-        var result = new T[size.X * size.Y * _scale * _scale];
+    public override LayerOutput<T> Get(LayerOutput<T> pArgs, Coord pPos, int pSeed) {
         
-        for (int x = 0; x < size.X; x++) {
-            for (int y = 0; y < size.Y; y++) {
-                var originIdx = x + pSize.X * y;
-                var idx = (x + size.X * _scale * y) * _scale;
+        var checkRange = pArgs.Size / 2;
+        var size = pArgs.Size;
+        var input = pArgs.Output;
+        var result = new T[4 * checkRange.X * checkRange.Y];
+        var seed = pSeed + pArgs.Depth;
+        var startDelta = new Coord(
+            pArgs.PixelPerSize.X * checkRange.X + pArgs.StartPos.X <= pPos.X ? checkRange.X : 0,
+            pArgs.PixelPerSize.Y * checkRange.Y + pArgs.StartPos.Y <= pPos.Y ? checkRange.Y : 0
+        );
+        
+        for (int x = 0; x < checkRange.X; x++) {
+            for (int y = 0; y < checkRange.Y; y++) {
+                var originIdx = (x + startDelta.X) + size.X * (y + startDelta.Y);
+                var idx = 2 * x + 4 * checkRange.X * y;
                 
-                for (int dx = 0; dx < _scale; dx++) {
-                    for (int dy = 0; dy < _scale; dy++) {
-                        var value = pInput[originIdx];
+                for (int dx = 0; dx < 2; dx++) {
+                    for (int dy = 0; dy < 2; dy++) {
+                        var value = input[originIdx];
                         if (!_spread) {
-                            result[idx + dx + dy * size.X * _scale] = value;
+                            result[idx + dx + 2 * dy * checkRange.X] = value;
                             continue;
                         }
                         
-                        var outX = dx >= _scale / 2;
-                        var outY = dy >= _scale / 2;
+                        var outX = dx >= 1;
+                        var outY = dy >= 1;
                         
-                        if (x == size.X - 1 && outX)
+                        if (x == checkRange.X - 1 && outX)
                             outX = false;
-                        if (y == size.Y - 1 && outY)
+                        if (y == checkRange.Y - 1 && outY)
                             outY = false;
                         
                         if (outX && outY) {
-                            var r = _random.Next() % 4;
+                            var r = Random(seed,
+                                (dx + x) * pArgs.PixelPerSize.X + pArgs.StartPos.X,
+                                (dy + y) * pArgs.PixelPerSize.Y + pArgs.StartPos.Y,
+                                4
+                            );
                             var delta = 0;
                             if ((r & 1) != 0) delta++;
-                            if ((r & 2) != 0) delta+= pSize.X;
-                            value = pInput[originIdx + delta];
+                            if ((r & 2) != 0) delta+= size.X;
+                            value = input[originIdx + delta];
                         }
                         else {
                             var delta = 0;
@@ -47,17 +53,37 @@ public class ZoomLayer<T>(int pSize, int pScale, bool pSpread = false): MiddleLa
                                 delta++;
                             }
                             if (outY) {
-                                delta = pSize.X;
+                                delta = size.X;
                             }
 
-                            value = pInput[originIdx + ((_random.Next() & 1) == 0 ? delta : 0)];
+                            var r = Random(seed,
+                                (dx + x) * pArgs.PixelPerSize.X + pArgs.StartPos.X,
+                                (dy + y) * pArgs.PixelPerSize.Y + pArgs.StartPos.Y,
+                                2
+                            );
+                            value = input[originIdx + (r == 0 ? delta : 0)];
                         }
-                        result[idx + dx + dy * size.X * _scale] = value;
+                        result[idx + dx + 2 * dy * checkRange.X] = value;
                     }
                 }
             }
         }
 
-        return new(size * _scale, result);
+        return new(
+            pArgs.StartPos + startDelta * pArgs.PixelPerSize,
+            pArgs.PixelPerSize / 2,
+            size,
+            result,
+            pArgs.Depth + 1
+        );
+        int Random(int pSeed, int pX, int pY, int pMaxValue) {
+            var v = pSeed;
+            v ^= pX * 0x4A7CE958;
+            v ^= pY * 0x2A673C11;
+            v ^= v >> 12;
+            v *= 0x1763CEA7;
+            v %= pMaxValue;
+            return v > 0 ? v : -v;
+        }
     }
 }

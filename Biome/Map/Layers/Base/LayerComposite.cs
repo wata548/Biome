@@ -2,19 +2,18 @@
 
 namespace Biome;
 
-public class LayerComposite<T>(List<MiddleLayer<T>> pLayers, bool pSaveImage = false, Func<T, Color> pTranslate = null): MiddleLayer<T> {
+public class LayerComposite<T>(List<MiddleLayer<T>> pLayers, bool pSaveImage = false, Func<T, Color> pTranslate = null): MiddleLayer<T> where T : notnull {
     public List<MiddleLayer<T>> MiddleLayer { get; set; } = pLayers;
     public bool SaveImage { get; set; } = pSaveImage;
     public Func<T, Color> Translate { get; set; } = pTranslate;
     
-    public override LayerOutput<T> Get(T[] pInput, Coord pSize, Coord pPos) {
+    public override LayerOutput<T> Get(LayerOutput<T> pArgs, Coord pPos, int pSeed) {
         int idx = 0;
-        var cur = new LayerOutput<T>(pSize, pInput);
         foreach (var layer in MiddleLayer) {
-            cur = layer.Get(cur.Output, cur.Size, pPos);
+            pArgs = layer.Get(pArgs, pPos, pSeed);
             if (SaveImage)
-                cur.ToImage($"Output/LayerOutput{idx++}.png", Translate);              
+                pArgs.ToImage($"Output/LayerOutput{idx++}.png", Translate);              
         }
-        return cur;
+        return pArgs;
     }
 }
