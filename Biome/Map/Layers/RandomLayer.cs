@@ -21,20 +21,26 @@ public class RandomLayer<T>: InputLayer<T> where T : notnull {
         var length = size.X * size.Y;
         var datas = new T[length];
 
+        var range = pArgs.PixelPerSize * pArgs.Size;
+        var startPos = new Coord(
+            (int)Math.Floor(pPos.X / (double)range.X) * range.X,
+            (int)Math.Floor(pPos.Y / (double)range.Y) * range.Y
+        );
+
         var seed = pSeed + pArgs.Depth;
         for (var x = 0; x < size.X; x++) {
             for (int y = 0; y < size.Y; y++) {
                 var value = Random(
                     seed,
-                    pArgs.StartPos.X + x * pArgs.PixelPerSize.X,
-                    pArgs.StartPos.Y + y * pArgs.PixelPerSize.Y,
+                    startPos.X + x * pArgs.PixelPerSize.X,
+                    startPos.Y + y * pArgs.PixelPerSize.Y,
                     _fixedTileRatio[^1].Amount
                 ) + 1;
                 datas[x + y * size.X] = _fixedTileRatio.UpperBound(value, row => row.Amount).Data;
             }
         }
 
-        return pArgs with { Output = datas, Depth = pArgs.Depth };
+        return pArgs with { StartPos = startPos, Output = datas, Depth = pArgs.Depth };
     }
     int Random(int pSeed, int pX, int pY, int pMaxValue) {
         var v = pSeed;

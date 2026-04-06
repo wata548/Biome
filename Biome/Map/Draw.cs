@@ -22,10 +22,9 @@ public static class Draw {
         var length = stride * pSize.Y;
         var buffer = new byte[length];
         
-        var coord = new Coord(0, 0);
-        for (int mapIdx = 0; coord.X < pSize.X; coord.X++) {
-            for (coord.Y = 0; coord.Y < pSize.Y; coord.Y++, mapIdx++) {
-                var idx = coord.Y * stride + coord.X * 3;
+        for (int mapIdx = 0, x = 0; x < pSize.X; x++) {
+            for (int y = 0; y < pSize.Y; y++, mapIdx++) {
+                var idx = y * stride + x * 3;
                 var color = pDefaultColor;
                 if(mapIdx < pDatas.Length)
                     color = pData2Color(pDatas[mapIdx]);
